@@ -81,7 +81,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
       margin: 0 auto;
     }
 
@@ -216,8 +216,8 @@
     .pin-keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 300px;
+      gap: 18px;
+      max-width: 310px;
       width: 100%;
     }
 
@@ -237,7 +237,7 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      min-height: 72px;
+      min-height: 80px;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       touch-action: manipulation;
@@ -501,7 +501,7 @@
       max-width: 50px;
       border-radius: 12px;
       background: linear-gradient(180deg, var(--accent), #0055b8);
-      transition: height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: height 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
       min-height: 8px;
       box-shadow: 0 6px 12px rgba(10, 132, 255, 0.3);
       position: relative;
@@ -582,8 +582,8 @@
     }
 
     .category-icon-svg {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       stroke: var(--text-primary);
       fill: none;
       stroke-width: 1.5;
@@ -686,6 +686,8 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      position: relative;
+      z-index: 1;
     }
 
     .history-group-label::after {
@@ -1364,7 +1366,7 @@
       .balance-amount { font-size: 30px; }
       .categories-grid { grid-template-columns: 1fr; }
       .pin-title { font-size: 24px; }
-      .pin-key { font-size: 28px; min-height: 64px; }
+      .pin-key { font-size: 28px; min-height: 70px; }
       .category-chip { font-size: 12px; padding: 6px 12px; }
       .pin-keypad { gap: 16px; max-width: 280px; }
       .chart-container { height: 150px; }
@@ -1380,12 +1382,12 @@
 <body>
   <div class="pin-screen" id="pinScreen">
     <div class="pin-content">
-      <div class="pin-icon-wrapper">
-        <svg class="pin-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5">
-          <text x="12" y="16" text-anchor="middle" font-size="14" fill="#0a84ff" stroke="none" font-weight="bold">₽</text>
-        </svg>
-      </div>
-      <div class="pin-title">Аналитика трат</div>
+     <div class="pin-icon-wrapper">
+  <svg class="pin-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5">
+    <text x="12" y="17" text-anchor="middle" font-size="20" fill="#0a84ff" stroke="none" font-weight="bold">₽</text>
+  </svg>
+</div>
+      <div class="pin-title">Мои финансы</div>
       <div class="pin-subtitle">от сына Александра</div>
       <div class="pin-error-message" id="pinErrorMessage"></div>
       <div class="pin-dots" id="pinDots">
@@ -1443,7 +1445,6 @@
           <button class="category-chip" data-category="Одежда">Одежда</button>
           <button class="category-chip" data-category="Связь и подписки">Связь</button>
           <button class="category-chip" data-category="Кафе и отдых">Кафе</button>
-          <button class="category-chip" data-category="Транспорт">Транспорт</button>
           <button class="category-chip" data-category="Подарки">Подарки</button>
           <button class="category-chip" data-category="Другое">Другое</button>
         </div>
@@ -1568,12 +1569,12 @@
           </svg>
           <span>Месяц</span>
         </button>
-        <button class="quick-action-btn" id="quickAll">
+        <button class="quick-action-btn" id="quickYear">
           <svg class="quick-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M18 17V9M13 17V5M8 17v-3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span>Все</span>
+          <span>Год</span>
         </button>
       </div>
 
@@ -1648,6 +1649,8 @@
       let editExpenseId = null;
       let deleteExpenseId = null;
       let openedItemId = null;
+      let isAddingExpense = false;
+      let isDeletingExpense = false;
 
       const pinScreen = document.getElementById('pinScreen');
       const pinDots = document.querySelectorAll('.pin-dot');
@@ -1671,7 +1674,7 @@
       const quickToday = document.getElementById('quickToday');
       const quickWeek = document.getElementById('quickWeek');
       const quickMonth = document.getElementById('quickMonth');
-      const quickAll = document.getElementById('quickAll');
+      const quickYear = document.getElementById('quickYear');
       const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
       const toggleHistoryAmountsBtn = document.getElementById('toggleHistoryAmountsBtn');
       const toggleHistoryBtn = document.getElementById('toggleHistoryBtn');
@@ -1695,16 +1698,15 @@
       const modalTitle = document.getElementById('modalTitle');
 
       const categoryIcons = {
-        'Продукты': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2v20M6 2h12M6 2c-2 0-3 1-3 3v3c0 2 1 3 3 3h12c2 0 3-1 3-3V5c0-2-1-3-3-3M6 11v11M6 11h12v11" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Машина': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 11l1.5-4h11L19 11M5 11h14v8H5zM8 16h.01M16 16h.01" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>',
+        'Продукты': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 11c0-4 3-7 8-7s8 3 8 7c0 1-1 2-2 2l-1 1v5a1 1 0 01-2 0v-5h-6v5a1 1 0 01-2 0v-5l-1-1c-1 0-2-1-2-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Машина': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 13l1.5-5h15L21 13M3 13h18v6h-3M3 13v6h3M8 19h.01M16 19h.01M5 10h14" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         'Дом': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 01-1 1h-5v-7h-6v7H4a1 1 0 01-1-1z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Здоровье': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5.5H9.5C7.5 5.5 6 7 6 9s1.5 3.5 3.5 3.5H14c2 0 3.5 1.5 3.5 3.5S16 19.5 14 19.5H7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Одежда': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l2 3h5l-1 5-3-2v14H9V8L6 10 5 5h5z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Здоровье': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="8" width="16" height="10" rx="5" transform="rotate(-45 12 13)"/><path d="M9 13h6" stroke-linecap="round"/></svg>',
+        'Одежда': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3l2 3h5l-1 5-3-2v12H9V9L6 11 5 6h5z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         'Связь и подписки': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="7" y="2" width="10" height="20" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 18h2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Кафе и отдых': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 3h16v8a4 4 0 01-4 4H8a4 4 0 01-4-4z" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 15v6M16 15v6M8 21h8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Транспорт': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 11l1.5-4h11L19 11M5 11h14v8H5zM8 16h.01M16 16h.01" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>',
+        'Кафе и отдых': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 8h1a3 3 0 010 6h-1M5 8h12v6a5 5 0 01-5 5H10a5 5 0 01-5-5z" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3v2M12 3v2M16 3v2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         'Подарки': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="8" width="18" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v14M3 12h18M12 8s-2-6-5-6 1 6 5 6zM12 8s2-6 5-6-1 6-5 6z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Другое': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M12 16h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        'Другое': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16v-4M12 8h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       };
 
       async function loadData() {
@@ -1813,6 +1815,7 @@
         weekStart.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1));
         weekStart.setHours(0, 0, 0, 0);
         const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+        const yearStart = new Date(now.getFullYear(), 0, 1).getTime();
 
         return expenses.filter(exp => {
           const expDate = new Date(exp.date).getTime();
@@ -1820,6 +1823,7 @@
             case 'today': return expDate >= todayStart;
             case 'week': return expDate >= weekStart.getTime();
             case 'month': return expDate >= monthStart;
+            case 'year': return expDate >= yearStart;
             default: return true;
           }
         });
@@ -1835,6 +1839,7 @@
         if (currentFilter === 'today') deltaInfoEl.textContent = 'Сегодня';
         else if (currentFilter === 'week') deltaInfoEl.textContent = 'За последние 7 дней';
         else if (currentFilter === 'month') deltaInfoEl.textContent = 'За текущий месяц';
+        else if (currentFilter === 'year') deltaInfoEl.textContent = 'За текущий год';
         else deltaInfoEl.textContent = 'За всё время';
 
         updateChart(filtered, false);
@@ -1873,7 +1878,7 @@
           
           if (animate) {
             bar.style.height = '0%';
-            bar.style.transition = 'height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            bar.style.transition = 'height 0.9s cubic-bezier(0.34, 1.56, 0.64, 1)';
           } else {
             bar.style.height = Math.max(heightPercent, 5) + '%';
             bar.style.transition = 'none';
@@ -2060,8 +2065,8 @@
       }
 
       function updateFilterButtons() {
-        const buttons = [quickToday, quickWeek, quickMonth, quickAll];
-        const filters = ['today', 'week', 'month', 'all'];
+        const buttons = [quickToday, quickWeek, quickMonth, quickYear];
+        const filters = ['today', 'week', 'month', 'year'];
         buttons.forEach((btn, index) => {
           btn.classList.toggle('active', filters[index] === currentFilter);
         });
@@ -2238,6 +2243,8 @@
       }
 
       async function addExpense() {
+        if (isAddingExpense) return;
+        
         const description = expenseDesc.value.trim();
         const amountStr = expenseAmount.value.trim();
         
@@ -2264,6 +2271,9 @@
           const customName = customCategoryName.value.trim();
           if (customName) finalCategory = customName;
         }
+        
+        isAddingExpense = true;
+        saveExpenseBtn.disabled = true;
         
         if (editExpenseId) {
           const success = await updateExpenseInDB(editExpenseId, {
@@ -2295,25 +2305,35 @@
             vibrate(30);
           }
         }
+        
+        isAddingExpense = false;
+        saveExpenseBtn.disabled = false;
       }
 
       async function deleteExpense() {
-        if (deleteExpenseId) {
-          const success = await deleteExpenseFromDB(deleteExpenseId);
-          if (success) {
-            await loadData();
-            updateUI();
-            hideDeleteConfirm();
-            vibrate(50);
-          }
+        if (isDeletingExpense || !deleteExpenseId) return;
+        
+        isDeletingExpense = true;
+        confirmDeleteBtn.disabled = true;
+        
+        const success = await deleteExpenseFromDB(deleteExpenseId);
+        
+        if (success) {
+          expenses = expenses.filter(e => e.id !== deleteExpenseId);
+          updateUI();
+          hideDeleteConfirm();
+          vibrate(50);
         }
+        
+        isDeletingExpense = false;
+        confirmDeleteBtn.disabled = false;
       }
 
       function getLockDuration(attempts) {
-        if (attempts >= 7) return 24 * 60 * 60 * 1000;
-        if (attempts >= 6) return 60 * 60 * 1000;
-        if (attempts >= 5) return 5 * 60 * 1000;
-        if (attempts >= 4) return 60 * 1000;
+        if (attempts >= 4) return 60 * 60 * 1000;
+        if (attempts >= 3) return 30 * 60 * 1000;
+        if (attempts >= 2) return 5 * 60 * 1000;
+        if (attempts >= 1) return 60 * 1000;
         return 0;
       }
 
@@ -2426,7 +2446,7 @@
         quickToday.addEventListener('click', () => { currentFilter = 'today'; updateUI(); vibrate(10); });
         quickWeek.addEventListener('click', () => { currentFilter = 'week'; updateUI(); vibrate(10); });
         quickMonth.addEventListener('click', () => { currentFilter = 'month'; updateUI(); vibrate(10); });
-        quickAll.addEventListener('click', () => { currentFilter = 'all'; updateUI(); vibrate(10); });
+        quickYear.addEventListener('click', () => { currentFilter = 'year'; updateUI(); vibrate(10); });
         
         toggleBalanceBtn.addEventListener('click', () => {
           isBalanceHidden = !isBalanceHidden;
@@ -2501,4 +2521,4 @@
     })();
   </script>
 </body>
-</html>м
+</html>
