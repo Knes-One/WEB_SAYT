@@ -1378,7 +1378,7 @@
     <div class="pin-content">
       <div class="pin-icon-wrapper">
         <svg class="pin-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5">
-          <path d="M12 2v20M17 5.5H9.5C7.5 5.5 6 7 6 9s1.5 3.5 3.5 3.5H14c2 0 3.5 1.5 3.5 3.5S16 19.5 14 19.5H7" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="12" y="16" text-anchor="middle" font-size="14" fill="#0a84ff" stroke="none" font-weight="bold">₽</text>
         </svg>
       </div>
       <div class="pin-title">Аналитика трат</div>
@@ -1618,11 +1618,10 @@
 
   <script>
     (function() {
-      const SUPABASE_URL = 'https://wbgtltndxweqbleizsax.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_L63-gF0rL_Z0kQ1QBUef9g_hcNnADcW';
+      const SUPABASE_URL = 'https://mzadljjyvqadsuzgritz.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_yjc34Dit3XupmL5iZDHd5w_RIo8gvCU';
       
       let supabase;
-      let currentUserId = null;
       
       try {
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -1704,24 +1703,7 @@
         'Другое': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M12 16h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       };
 
-      async function initSupabase() {
-        if (!supabase) return false;
-        try {
-          const { data: { user }, error } = await supabase.auth.signInAnonymously();
-          if (error) {
-            console.error('Auth error:', error);
-            return false;
-          }
-          currentUserId = user.id;
-          return true;
-        } catch (error) {
-          console.error('Auth critical error:', error);
-          return false;
-        }
-      }
-
       async function loadData() {
-        if (!supabase) return;
         try {
           const { data, error } = await supabase
             .from('expenses')
@@ -1755,6 +1737,7 @@
           return true;
         } catch (e) {
           console.error('Insert critical error:', e);
+          alert('Ошибка: ' + e.message);
           return false;
         }
       }
@@ -2292,17 +2275,11 @@
             vibrate(30);
           }
         } else {
-          if (!currentUserId) {
-            alert('Ошибка: пользователь не авторизован');
-            return;
-          }
-          
           const newExpense = {
             description: description,
             amount: amount,
             category: finalCategory,
-            date: new Date().toISOString(),
-            user_id: currentUserId
+            date: new Date().toISOString()
           };
           
           const success = await addExpenseToDB(newExpense);
@@ -2386,12 +2363,6 @@
       }
 
       async function init() {
-        const authSuccess = await initSupabase();
-        if (!authSuccess) {
-          pinErrorMessage.textContent = 'Ошибка подключения к серверу';
-          return;
-        }
-        
         await loadData();
         updateUI();
         
