@@ -81,7 +81,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 500px;
+      max-width: 480px;
       margin: 0 auto;
     }
 
@@ -216,8 +216,8 @@
     .pin-keypad {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      max-width: 310px;
+      gap: 20px;
+      max-width: 300px;
       width: 100%;
     }
 
@@ -237,7 +237,7 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      min-height: 80px;
+      min-height: 72px;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
       touch-action: manipulation;
@@ -352,7 +352,7 @@
       background: var(--card-bg);
       border-radius: var(--radius-inner);
       padding: 22px 20px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       border: 1px solid rgba(255,255,255,0.5);
       box-shadow: 0 12px 24px rgba(0,0,0,0.04);
     }
@@ -408,6 +408,67 @@
       font-size: 14px;
       margin-top: 4px;
       font-weight: 500;
+    }
+
+    .month-selector {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius-inner);
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.03);
+    }
+
+    .month-selector.visible {
+      display: flex;
+    }
+
+    .month-nav-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.06);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .month-nav-btn:active {
+      transform: scale(0.9);
+      background: rgba(0,0,0,0.1);
+    }
+
+    .month-nav-btn:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .month-nav-svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-secondary);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .month-selector-label {
+      flex: 1;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .month-selector-label.active-month {
+      color: var(--orange);
     }
 
     .quick-actions {
@@ -501,7 +562,7 @@
       max-width: 50px;
       border-radius: 12px;
       background: linear-gradient(180deg, var(--accent), #0055b8);
-      transition: height 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       min-height: 8px;
       box-shadow: 0 6px 12px rgba(10, 132, 255, 0.3);
       position: relative;
@@ -582,8 +643,8 @@
     }
 
     .category-icon-svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
       stroke: var(--text-primary);
       fill: none;
       stroke-width: 1.5;
@@ -602,6 +663,7 @@
       font-size: 13px;
       color: var(--text-secondary);
       margin-top: 2px;
+      transition: opacity 0.3s, filter 0.3s;
     }
 
     .history-section {
@@ -686,8 +748,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      position: relative;
-      z-index: 1;
     }
 
     .history-group-label::after {
@@ -975,6 +1035,11 @@
       box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.15);
     }
 
+    .input-field.error {
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(255, 69, 58, 0.15);
+    }
+
     .category-selector {
       display: flex;
       flex-wrap: wrap;
@@ -1151,33 +1216,6 @@
       margin-bottom: 24px;
     }
 
-    .month-nav-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.06);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .month-nav-btn:active {
-      transform: scale(0.9);
-      background: rgba(0,0,0,0.1);
-    }
-
-    .month-nav-svg {
-      width: 20px;
-      height: 20px;
-      stroke: var(--text-secondary);
-      fill: none;
-      stroke-width: 1.5;
-    }
-
     .month-label {
       flex: 1;
       text-align: center;
@@ -1273,6 +1311,42 @@
       transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
+    .share-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #0a84ff, #0066cc);
+      color: white;
+      border: none;
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+      font-family: var(--font);
+      box-shadow: 0 8px 24px rgba(10, 132, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .share-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+    }
+
+    .share-icon {
+      width: 22px;
+      height: 22px;
+      stroke: white;
+      fill: none;
+      stroke-width: 2;
+    }
+
     .confirm-dialog {
       position: fixed;
       top: 0;
@@ -1361,12 +1435,36 @@
       box-shadow: 0 8px 20px rgba(255, 69, 58, 0.3);
     }
 
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 5000;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      max-width: 90%;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
     @media (max-width: 400px) {
       .main-card { padding: 18px 14px 24px; }
       .balance-amount { font-size: 30px; }
       .categories-grid { grid-template-columns: 1fr; }
       .pin-title { font-size: 24px; }
-      .pin-key { font-size: 28px; min-height: 70px; }
+      .pin-key { font-size: 28px; min-height: 64px; }
       .category-chip { font-size: 12px; padding: 6px 12px; }
       .pin-keypad { gap: 16px; max-width: 280px; }
       .chart-container { height: 150px; }
@@ -1376,17 +1474,19 @@
       .monthly-summary-btn { padding: 14px; font-size: 15px; }
       .history-action-btn { font-size: 12px; padding: 8px; }
       .history-action-icon { width: 16px; height: 16px; }
+      .month-selector { padding: 8px 10px; }
+      .month-selector-label { font-size: 14px; }
     }
   </style>
 </head>
 <body>
   <div class="pin-screen" id="pinScreen">
     <div class="pin-content">
-     <div class="pin-icon-wrapper">
-  <svg class="pin-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5">
-    <text x="12" y="17" text-anchor="middle" font-size="20" fill="#0a84ff" stroke="none" font-weight="bold">₽</text>
-  </svg>
-</div>
+      <div class="pin-icon-wrapper">
+        <svg class="pin-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#0a84ff" stroke-width="1.5">
+          <text x="12" y="17" text-anchor="middle" font-size="20" fill="#0a84ff" stroke="none" font-weight="bold">₽</text>
+        </svg>
+      </div>
       <div class="pin-title">Мои финансы</div>
       <div class="pin-subtitle">от сына Александра</div>
       <div class="pin-error-message" id="pinErrorMessage"></div>
@@ -1429,11 +1529,11 @@
       </div>
       <div class="input-group">
         <label class="input-label">Описание</label>
-        <input class="input-field" id="expenseDesc" placeholder="Например, продукты в магните" autocomplete="off">
+        <input class="input-field" id="expenseDesc" placeholder="Например, продукты в магните" autocomplete="off" maxlength="100">
       </div>
       <div class="input-group">
-        <label class="input-label">Сумма</label>
-        <input class="input-field" id="expenseAmount" type="number" placeholder="0.00" inputmode="decimal">
+        <label class="input-label">Сумма (максимум 10 000 000 ₽)</label>
+        <input class="input-field" id="expenseAmount" type="number" placeholder="0.00" inputmode="decimal" min="0.01" max="10000000" step="0.01">
       </div>
       <div class="input-group">
         <label class="input-label">Категория</label>
@@ -1445,11 +1545,12 @@
           <button class="category-chip" data-category="Одежда">Одежда</button>
           <button class="category-chip" data-category="Связь и подписки">Связь</button>
           <button class="category-chip" data-category="Кафе и отдых">Кафе</button>
+          <button class="category-chip" data-category="Транспорт">Транспорт</button>
           <button class="category-chip" data-category="Подарки">Подарки</button>
           <button class="category-chip" data-category="Другое">Другое</button>
         </div>
         <div class="custom-category-input" id="customCategoryInput">
-          <input class="input-field" id="customCategoryName" placeholder="Название категории" autocomplete="off">
+          <input class="input-field" id="customCategoryName" placeholder="Название категории" autocomplete="off" maxlength="50">
         </div>
       </div>
       <button class="submit-btn" id="saveExpenseBtn">Добавить трату</button>
@@ -1478,13 +1579,13 @@
         </button>
       </div>
       <div class="month-navigation">
-        <button class="month-nav-btn" id="prevMonthBtn">
+        <button class="month-nav-btn" id="prevMonthBtn" aria-label="Предыдущий месяц">
           <svg class="month-nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
         <div class="month-label" id="monthLabel">Август 2026</div>
-        <button class="month-nav-btn" id="nextMonthBtn">
+        <button class="month-nav-btn" id="nextMonthBtn" aria-label="Следующий месяц">
           <svg class="month-nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -1508,6 +1609,15 @@
       <div class="category-breakdown" id="categoryBreakdown">
         <div class="section-title">Куда ушли деньги</div>
       </div>
+      <button class="share-btn" id="shareBtn">
+        <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="18" cy="5" r="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="6" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="19" r="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Поделиться итогами
+      </button>
     </div>
   </div>
 
@@ -1526,7 +1636,7 @@
             <div class="greeting-sub">Аналитика трат</div>
           </div>
         </div>
-        <button class="add-btn" id="addExpenseBtn">
+        <button class="add-btn" id="addExpenseBtn" aria-label="Добавить трату">
           <svg class="add-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M12 5v14M5 12h14" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -1535,8 +1645,8 @@
 
       <div class="balance-block">
         <div class="balance-header">
-          <div class="balance-label">Всего потрачено</div>
-          <button class="toggle-btn" id="toggleBalanceBtn">
+          <div class="balance-label" id="balanceLabel">Потрачено сегодня</div>
+          <button class="toggle-btn" id="toggleBalanceBtn" aria-label="Показать/скрыть суммы">
             <svg class="toggle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-linecap="round" stroke-linejoin="round"/>
               <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1545,6 +1655,20 @@
         </div>
         <div class="balance-amount" id="totalBalance">0 ₽</div>
         <div class="balance-delta" id="deltaInfo">Сегодня</div>
+      </div>
+
+      <div class="month-selector" id="monthSelector">
+        <button class="month-nav-btn" id="prevMonthFilterBtn" aria-label="Предыдущий месяц">
+          <svg class="month-nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="month-selector-label" id="monthSelectorLabel">Текущий месяц</div>
+        <button class="month-nav-btn" id="nextMonthFilterBtn" aria-label="Следующий месяц">
+          <svg class="month-nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
 
       <div class="quick-actions">
@@ -1569,17 +1693,17 @@
           </svg>
           <span>Месяц</span>
         </button>
-        <button class="quick-action-btn" id="quickYear">
+        <button class="quick-action-btn" id="quickAll">
           <svg class="quick-action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M18 17V9M13 17V5M8 17v-3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <span>Год</span>
+          <span>Все</span>
         </button>
       </div>
 
       <div class="chart-section">
-        <button class="refresh-btn" id="refreshChartBtn">
+        <button class="refresh-btn" id="refreshChartBtn" aria-label="Обновить данные">
           <svg class="refresh-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M23 4v6h-6M1 20v-6h6" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1603,14 +1727,14 @@
         <div class="history-header">
           <div class="history-header-left">
             <div class="section-title" style="margin-bottom: 0;">История</div>
-            <button class="toggle-btn" id="toggleHistoryAmountsBtn">
+            <button class="toggle-btn" id="toggleHistoryAmountsBtn" aria-label="Показать/скрыть суммы в истории">
               <svg class="toggle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-linecap="round" stroke-linejoin="round"/>
                 <circle cx="12" cy="12" r="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
           </div>
-          <button class="history-toggle-btn" id="toggleHistoryBtn">
+          <button class="history-toggle-btn" id="toggleHistoryBtn" aria-label="Свернуть/развернуть историю">
             <svg class="history-toggle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1621,27 +1745,33 @@
     </div>
   </div>
 
+  <div class="toast" id="toast"></div>
+
   <script>
     (function() {
       const SUPABASE_URL = 'https://mzadljjyvqadsuzgritz.supabase.co';
       const SUPABASE_ANON_KEY = 'sb_publishable_yjc34Dit3XupmL5iZDHd5w_RIo8gvCU';
+      const MIN_DATE = new Date(2026, 7, 1); // 1 августа 2026
+      const MAX_AMOUNT = 10000000; // 10 миллионов рублей
       
       let supabase;
+      let toastTimer = null;
       
       try {
         supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       } catch (error) {
         console.error('Supabase init error:', error);
+        showToast('Ошибка подключения к серверу');
       }
 
       let expenses = [];
       let selectedCategory = 'Продукты';
       let currentFilter = 'today';
-      let isBalanceHidden = false;
-      let isHistoryAmountsHidden = false;
+      let selectedMonthOffset = 0;
+      let isAmountsHidden = false; // Единый флаг для скрытия всех сумм
       let isHistoryCollapsed = false;
       let pinCode = '';
-      const correctPin = '5514';
+      const correctPinHash = '5514'; // В реальном приложении использовать хеширование
       let failedAttempts = 0;
       let lockUntil = null;
       let lockTimer = null;
@@ -1649,8 +1779,8 @@
       let editExpenseId = null;
       let deleteExpenseId = null;
       let openedItemId = null;
-      let isAddingExpense = false;
-      let isDeletingExpense = false;
+      let isViewingPastMonth = false;
+      let isLoading = false;
 
       const pinScreen = document.getElementById('pinScreen');
       const pinDots = document.querySelectorAll('.pin-dot');
@@ -1668,13 +1798,14 @@
       const customCategoryName = document.getElementById('customCategoryName');
       const totalBalanceEl = document.getElementById('totalBalance');
       const deltaInfoEl = document.getElementById('deltaInfo');
+      const balanceLabel = document.getElementById('balanceLabel');
       const chartContainer = document.getElementById('chartContainer');
       const categoriesGrid = document.getElementById('categoriesGrid');
       const historyList = document.getElementById('historyList');
       const quickToday = document.getElementById('quickToday');
       const quickWeek = document.getElementById('quickWeek');
       const quickMonth = document.getElementById('quickMonth');
-      const quickYear = document.getElementById('quickYear');
+      const quickAll = document.getElementById('quickAll');
       const toggleBalanceBtn = document.getElementById('toggleBalanceBtn');
       const toggleHistoryAmountsBtn = document.getElementById('toggleHistoryAmountsBtn');
       const toggleHistoryBtn = document.getElementById('toggleHistoryBtn');
@@ -1696,20 +1827,38 @@
       const confirmCancelBtn = document.getElementById('confirmCancelBtn');
       const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
       const modalTitle = document.getElementById('modalTitle');
+      const monthSelector = document.getElementById('monthSelector');
+      const prevMonthFilterBtn = document.getElementById('prevMonthFilterBtn');
+      const nextMonthFilterBtn = document.getElementById('nextMonthFilterBtn');
+      const monthSelectorLabel = document.getElementById('monthSelectorLabel');
+      const toast = document.getElementById('toast');
+      const shareBtn = document.getElementById('shareBtn');
 
       const categoryIcons = {
-        'Продукты': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 11c0-4 3-7 8-7s8 3 8 7c0 1-1 2-2 2l-1 1v5a1 1 0 01-2 0v-5h-6v5a1 1 0 01-2 0v-5l-1-1c-1 0-2-1-2-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Машина': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 13l1.5-5h15L21 13M3 13h18v6h-3M3 13v6h3M8 19h.01M16 19h.01M5 10h14" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Продукты': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2v20M6 2h12M6 2c-2 0-3 1-3 3v3c0 2 1 3 3 3h12c2 0 3-1 3-3V5c0-2-1-3-3-3M6 11v11M6 11h12v11" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Машина': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 11l1.5-4h11L19 11M5 11h14v8H5zM8 16h.01M16 16h.01" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>',
         'Дом': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 01-1 1h-5v-7h-6v7H4a1 1 0 01-1-1z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Здоровье': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="8" width="16" height="10" rx="5" transform="rotate(-45 12 13)"/><path d="M9 13h6" stroke-linecap="round"/></svg>',
-        'Одежда': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3l2 3h5l-1 5-3-2v12H9V9L6 11 5 6h5z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Здоровье': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M17 5.5H9.5C7.5 5.5 6 7 6 9s1.5 3.5 3.5 3.5H14c2 0 3.5 1.5 3.5 3.5S16 19.5 14 19.5H7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Одежда': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l2 3h5l-1 5-3-2v14H9V8L6 10 5 5h5z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
         'Связь и подписки': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="7" y="2" width="10" height="20" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 18h2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Кафе и отдых': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 8h1a3 3 0 010 6h-1M5 8h12v6a5 5 0 01-5 5H10a5 5 0 01-5-5z" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 3v2M12 3v2M16 3v2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Кафе и отдых': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 3h16v8a4 4 0 01-4 4H8a4 4 0 01-4-4z" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 15v6M16 15v6M8 21h8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        'Транспорт': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 11l1.5-4h11L19 11M5 11h14v8H5zM8 16h.01M16 16h.01" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="16" r="1"/><circle cx="16" cy="16" r="1"/></svg>',
         'Подарки': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="8" width="18" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v14M3 12h18M12 8s-2-6-5-6 1 6 5 6zM12 8s2-6 5-6-1 6-5 6z" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-        'Другое': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 16v-4M12 8h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        'Другое': '<svg class="category-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8v4M12 16h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       };
 
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
       async function loadData() {
+        if (isLoading) return;
+        isLoading = true;
         try {
           const { data, error } = await supabase
             .from('expenses')
@@ -1718,13 +1867,17 @@
           
           if (error) {
             console.error('Load error:', error);
+            showToast('Ошибка загрузки данных');
             return;
           }
           
           expenses = data || [];
         } catch (e) {
           console.error('Load critical error:', e);
+          showToast('Ошибка соединения с сервером');
           expenses = [];
+        } finally {
+          isLoading = false;
         }
       }
 
@@ -1736,14 +1889,14 @@
           
           if (error) {
             console.error('Insert error:', error);
-            alert('Ошибка добавления: ' + error.message);
+            showToast('Ошибка добавления: ' + error.message);
             return false;
           }
           
           return true;
         } catch (e) {
           console.error('Insert critical error:', e);
-          alert('Ошибка: ' + e.message);
+          showToast('Ошибка соединения с сервером');
           return false;
         }
       }
@@ -1757,13 +1910,14 @@
           
           if (error) {
             console.error('Update error:', error);
-            alert('Ошибка обновления: ' + error.message);
+            showToast('Ошибка обновления: ' + error.message);
             return false;
           }
           
           return true;
         } catch (e) {
           console.error('Update critical error:', e);
+          showToast('Ошибка соединения с сервером');
           return false;
         }
       }
@@ -1777,24 +1931,35 @@
           
           if (error) {
             console.error('Delete error:', error);
-            alert('Ошибка удаления: ' + error.message);
+            showToast('Ошибка удаления: ' + error.message);
             return false;
           }
           
           return true;
         } catch (e) {
           console.error('Delete critical error:', e);
+          showToast('Ошибка соединения с сервером');
           return false;
         }
       }
 
-      function formatDate(dateStr) {
+      function formatDate(dateStr, isPastMonthView = false) {
         const date = new Date(dateStr);
         const now = new Date();
+        
+        if (isPastMonthView) {
+          return date.toLocaleDateString('ru-RU', { 
+            day: 'numeric', 
+            month: 'long',
+            year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+          });
+        }
+        
         const isToday = date.toDateString() === now.toDateString();
         const yesterday = new Date(now);
         yesterday.setDate(now.getDate() - 1);
         const isYesterday = date.toDateString() === yesterday.toDateString();
+        
         if (isToday) return 'Сегодня';
         if (isYesterday) return 'Вчера';
         return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
@@ -1805,7 +1970,20 @@
       }
 
       function formatAmount(amount) {
+        if (isAmountsHidden) {
+          return '•••••';
+        }
         return amount.toLocaleString('ru-RU') + ' ₽';
+      }
+
+      function getSelectedMonthDate() {
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth() + selectedMonthOffset, 1);
+      }
+
+      function canGoToPreviousMonth() {
+        const selectedMonth = getSelectedMonthDate();
+        return selectedMonth > MIN_DATE;
       }
 
       function getFilteredExpenses(filter) {
@@ -1815,36 +1993,86 @@
         weekStart.setDate(now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1));
         weekStart.setHours(0, 0, 0, 0);
         const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
-        const yearStart = new Date(now.getFullYear(), 0, 1).getTime();
 
         return expenses.filter(exp => {
           const expDate = new Date(exp.date).getTime();
           switch(filter) {
-            case 'today': return expDate >= todayStart;
-            case 'week': return expDate >= weekStart.getTime();
-            case 'month': return expDate >= monthStart;
-            case 'year': return expDate >= yearStart;
-            default: return true;
+            case 'today': 
+              return expDate >= todayStart;
+            case 'week': 
+              return expDate >= weekStart.getTime();
+            case 'month': 
+              if (selectedMonthOffset === 0) {
+                return expDate >= monthStart;
+              } else {
+                const selectedMonth = getSelectedMonthDate();
+                const selectedMonthStart = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth(), 1).getTime();
+                const selectedMonthEnd = new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1, 0, 23, 59, 59).getTime();
+                return expDate >= selectedMonthStart && expDate <= selectedMonthEnd;
+              }
+            case 'all':
+              return true;
+            default: 
+              return true;
           }
         });
+      }
+
+      function updateMonthSelectorLabel() {
+        if (selectedMonthOffset === 0) {
+          monthSelectorLabel.textContent = 'Текущий месяц';
+          monthSelectorLabel.classList.remove('active-month');
+        } else {
+          const selectedMonth = getSelectedMonthDate();
+          const monthName = selectedMonth.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+          monthSelectorLabel.textContent = monthName;
+          monthSelectorLabel.classList.add('active-month');
+        }
       }
 
       function updateUI() {
         const filtered = getFilteredExpenses(currentFilter);
         const total = filtered.reduce((sum, exp) => sum + exp.amount, 0);
         
-        totalBalanceEl.textContent = formatAmount(total);
-        totalBalanceEl.classList.toggle('hidden-amount', isBalanceHidden);
+        isViewingPastMonth = currentFilter === 'month' && selectedMonthOffset !== 0;
         
-        if (currentFilter === 'today') deltaInfoEl.textContent = 'Сегодня';
-        else if (currentFilter === 'week') deltaInfoEl.textContent = 'За последние 7 дней';
-        else if (currentFilter === 'month') deltaInfoEl.textContent = 'За текущий месяц';
-        else if (currentFilter === 'year') deltaInfoEl.textContent = 'За текущий год';
-        else deltaInfoEl.textContent = 'За всё время';
+        totalBalanceEl.textContent = formatAmount(total);
+        totalBalanceEl.classList.toggle('hidden-amount', isAmountsHidden);
+        
+        if (currentFilter === 'today') {
+          balanceLabel.textContent = 'Потрачено сегодня';
+          deltaInfoEl.textContent = 'Сегодня';
+        } else if (currentFilter === 'week') {
+          balanceLabel.textContent = 'Потрачено за неделю';
+          deltaInfoEl.textContent = 'За последние 7 дней';
+        } else if (currentFilter === 'month') {
+          if (selectedMonthOffset === 0) {
+            balanceLabel.textContent = 'Потрачено за месяц';
+            deltaInfoEl.textContent = 'За текущий месяц';
+          } else {
+            const selectedMonth = getSelectedMonthDate();
+            const monthName = selectedMonth.toLocaleDateString('ru-RU', { month: 'long' });
+            balanceLabel.textContent = `Просмотр: ${monthName} ${selectedMonth.getFullYear()}`;
+            deltaInfoEl.textContent = `Просмотр месяца: ${selectedMonth.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' })}`;
+          }
+        } else {
+          balanceLabel.textContent = 'Потрачено за всё время';
+          deltaInfoEl.textContent = 'За всё время';
+        }
 
+        if (currentFilter === 'month') {
+          monthSelector.classList.add('visible');
+        } else {
+          monthSelector.classList.remove('visible');
+        }
+
+        prevMonthFilterBtn.disabled = !canGoToPreviousMonth();
+        nextMonthFilterBtn.disabled = selectedMonthOffset >= 0;
+
+        updateMonthSelectorLabel();
         updateChart(filtered, false);
         updateCategories(filtered);
-        updateHistory(filtered);
+        updateHistory(filtered, isViewingPastMonth);
         updateFilterButtons();
       }
 
@@ -1861,7 +2089,7 @@
         chartContainer.innerHTML = '';
         
         if (categoryNames.length === 0) {
-          chartContainer.innerHTML = '<div class="empty-state"><svg class="empty-state-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 15l4-6 4 3 5-8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Нет данных</div></div>';
+          chartContainer.innerHTML = '<div class="empty-state"><svg class="empty-state-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 15l4-6 4 3 5-8" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Нет данных за этот период</div></div>';
           return;
         }
         
@@ -1878,7 +2106,7 @@
           
           if (animate) {
             bar.style.height = '0%';
-            bar.style.transition = 'height 0.9s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            bar.style.transition = 'height 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
           } else {
             bar.style.height = Math.max(heightPercent, 5) + '%';
             bar.style.transition = 'none';
@@ -1886,7 +2114,7 @@
           
           const label = document.createElement('div');
           label.className = 'chart-label';
-          label.textContent = cat.substring(0, 6);
+          label.textContent = isAmountsHidden ? '•••' : cat.substring(0, 6);
           
           barWrapper.appendChild(bar);
           barWrapper.appendChild(label);
@@ -1936,6 +2164,7 @@
           const amountEl = document.createElement('div');
           amountEl.className = 'category-amount';
           amountEl.textContent = formatAmount(amount);
+          amountEl.classList.toggle('hidden-amount', isAmountsHidden);
           
           info.appendChild(name);
           info.appendChild(amountEl);
@@ -1945,20 +2174,23 @@
         });
       }
 
-      function updateHistory(expensesList) {
+      function updateHistory(expensesList, isPastMonthView = false) {
         const sorted = [...expensesList].sort((a, b) => new Date(b.date) - new Date(a.date));
         
         historyList.innerHTML = '';
         openedItemId = null;
         
         if (sorted.length === 0) {
-          historyList.innerHTML = '<div class="empty-state"><svg class="empty-state-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 8v4l3 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Пока нет расходов</div></div>';
+          historyList.innerHTML = '<div class="empty-state"><svg class="empty-state-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 8v4l3 3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/></svg><div>Нет расходов за этот период</div></div>';
           return;
         }
         
+        // Показываем только последние 50 записей для производительности
+        const limitedExpenses = sorted.slice(0, 50);
+        
         const groups = {};
-        sorted.forEach(exp => {
-          const dateLabel = formatDate(exp.date);
+        limitedExpenses.forEach(exp => {
+          const dateLabel = formatDate(exp.date, isPastMonthView);
           if (!groups[dateLabel]) groups[dateLabel] = [];
           groups[dateLabel].push(exp);
         });
@@ -2000,8 +2232,8 @@
             
             const amount = document.createElement('div');
             amount.className = 'history-amount amount-negative';
-            amount.textContent = '-' + formatAmount(exp.amount);
-            amount.classList.toggle('hidden-amount', isHistoryAmountsHidden);
+            amount.textContent = isAmountsHidden ? '•••••' : '-' + formatAmount(exp.amount);
+            amount.classList.toggle('hidden-amount', isAmountsHidden);
             
             item.appendChild(icon);
             item.appendChild(details);
@@ -2051,6 +2283,15 @@
           historyList.appendChild(group);
         });
         
+        if (sorted.length > 50) {
+          const moreInfo = document.createElement('div');
+          moreInfo.className = 'empty-state';
+          moreInfo.style.padding = '16px';
+          moreInfo.style.fontSize = '13px';
+          moreInfo.textContent = `Показаны последние 50 из ${sorted.length} записей`;
+          historyList.appendChild(moreInfo);
+        }
+        
         historyList.classList.toggle('collapsed', isHistoryCollapsed);
       }
 
@@ -2065,8 +2306,8 @@
       }
 
       function updateFilterButtons() {
-        const buttons = [quickToday, quickWeek, quickMonth, quickYear];
-        const filters = ['today', 'week', 'month', 'year'];
+        const buttons = [quickToday, quickWeek, quickMonth, quickAll];
+        const filters = ['today', 'week', 'month', 'all'];
         buttons.forEach((btn, index) => {
           btn.classList.toggle('active', filters[index] === currentFilter);
         });
@@ -2086,9 +2327,9 @@
         const average = count > 0 ? total / daysInMonth : 0;
 
         monthLabel.textContent = currentAnalyticsMonth.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
-        analyticsTotal.textContent = formatAmount(total);
+        analyticsTotal.textContent = isAmountsHidden ? '•••••' : formatAmount(total);
         analyticsCount.textContent = count;
-        analyticsAverage.textContent = formatAmount(Math.round(average));
+        analyticsAverage.textContent = isAmountsHidden ? '•••••' : formatAmount(Math.round(average));
 
         const prevMonthDate = new Date(year, month - 1, 1);
         const prevMonthExpenses = expenses.filter(exp => {
@@ -2102,6 +2343,9 @@
           comparisonText.className = 'comparison-text';
         } else if (prevTotal === 0) {
           comparisonText.textContent = 'Нет данных за прошлый месяц';
+          comparisonText.className = 'comparison-text';
+        } else if (isAmountsHidden) {
+          comparisonText.textContent = 'Суммы скрыты';
           comparisonText.className = 'comparison-text';
         } else {
           const diff = total - prevTotal;
@@ -2132,14 +2376,15 @@
         } else {
           sortedCategories.forEach(([cat, amount]) => {
             const percent = total > 0 ? ((amount / total) * 100).toFixed(1) : 0;
+            const displayAmount = isAmountsHidden ? '•••••' : formatAmount(amount);
             breakdownHTML += `
               <div class="breakdown-item">
                 <div class="breakdown-header">
                   <span class="breakdown-name">${cat}</span>
-                  <span class="breakdown-amount">${formatAmount(amount)} — ${percent}%</span>
+                  <span class="breakdown-amount">${displayAmount} — ${isAmountsHidden ? '•••' : percent + '%'}</span>
                 </div>
                 <div class="breakdown-bar">
-                  <div class="breakdown-bar-fill" style="width: ${percent}%; background: linear-gradient(90deg, var(--accent), #0055b8);"></div>
+                  <div class="breakdown-bar-fill" style="width: ${isAmountsHidden ? 0 : percent}%; background: linear-gradient(90deg, var(--accent), #0055b8);"></div>
                 </div>
               </div>
             `;
@@ -2147,6 +2392,113 @@
         }
         
         categoryBreakdown.innerHTML = breakdownHTML;
+        
+        prevMonthBtn.disabled = currentAnalyticsMonth <= MIN_DATE;
+        nextMonthBtn.disabled = currentAnalyticsMonth >= new Date();
+      }
+
+      function shareMonthlyReport() {
+        const year = currentAnalyticsMonth.getFullYear();
+        const month = currentAnalyticsMonth.getMonth();
+        const monthExpenses = expenses.filter(exp => {
+          const expDate = new Date(exp.date);
+          return expDate.getFullYear() === year && expDate.getMonth() === month;
+        });
+
+        if (monthExpenses.length === 0) {
+          showToast('Нет данных за этот месяц');
+          return;
+        }
+
+        const total = monthExpenses.reduce((sum, exp) => sum + exp.amount, 0);
+        const count = monthExpenses.length;
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const average = total / daysInMonth;
+        const monthName = currentAnalyticsMonth.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' });
+
+        // Собираем категории
+        const categories = {};
+        monthExpenses.forEach(exp => {
+          categories[exp.category] = (categories[exp.category] || 0) + exp.amount;
+        });
+
+        const sortedCategories = Object.entries(categories).sort((a, b) => b[1] - a[1]);
+
+        // Формируем текст для шаринга
+        let shareText = `📊 Мои расходы за ${monthName}\n\n`;
+        shareText += `💰 Всего потрачено: ${total.toLocaleString('ru-RU')} ₽\n`;
+        shareText += `📈 Средний расход в день: ${Math.round(average).toLocaleString('ru-RU')} ₽\n`;
+        shareText += `📝 Количество расходов: ${count}\n\n`;
+        shareText += `📋 Распределение по категориям:\n`;
+
+        sortedCategories.slice(0, 10).forEach(([cat, amount]) => {
+          const percent = ((amount / total) * 100).toFixed(1);
+          const emoji = getCategoryEmoji(cat);
+          shareText += `${emoji} ${cat}: ${amount.toLocaleString('ru-RU')} ₽ (${percent}%)\n`;
+        });
+
+        if (sortedCategories.length > 10) {
+          shareText += `... и ещё ${sortedCategories.length - 10} категорий\n`;
+        }
+
+        shareText += `\n📱 Учёт расходов — приложение "Мои финансы"`;
+
+        // Пытаемся поделиться
+        if (navigator.share) {
+          navigator.share({
+            title: `Мои расходы за ${monthName}`,
+            text: shareText,
+          }).catch(err => {
+            if (err.name !== 'AbortError') {
+              copyToClipboard(shareText);
+            }
+          });
+        } else {
+          copyToClipboard(shareText);
+        }
+
+        vibrate(30);
+      }
+
+      function getCategoryEmoji(category) {
+        const emojiMap = {
+          'Продукты': '🛒',
+          'Машина': '🚗',
+          'Дом': '🏠',
+          'Здоровье': '💊',
+          'Одежда': '👕',
+          'Связь и подписки': '📱',
+          'Кафе и отдых': '☕',
+          'Транспорт': '🚌',
+          'Подарки': '🎁',
+          'Другое': '📦'
+        };
+        return emojiMap[category] || '📦';
+      }
+
+      function copyToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast('Отчёт скопирован в буфер обмена');
+          }).catch(() => {
+            // Fallback
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast('Отчёт скопирован в буфер обмена');
+          });
+        } else {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+          showToast('Отчёт скопирован в буфер обмена');
+        }
       }
 
       function vibrate(pattern) {
@@ -2164,6 +2516,8 @@
         customCategoryName.value = '';
         customCategoryInput.classList.remove('visible');
         updateCategorySelectorUI();
+        expenseDesc.classList.remove('error');
+        expenseAmount.classList.remove('error');
         setTimeout(() => expenseDesc.focus(), 300);
       }
 
@@ -2189,6 +2543,8 @@
           customCategoryInput.classList.remove('visible');
         }
         updateCategorySelectorUI();
+        expenseDesc.classList.remove('error');
+        expenseAmount.classList.remove('error');
         modalOverlay.classList.add('active');
         setTimeout(() => expenseDesc.focus(), 300);
       }
@@ -2202,7 +2558,7 @@
         const exp = expenses.find(e => e.id === id);
         if (!exp) return;
         deleteExpenseId = id;
-        confirmSub.textContent = `${exp.description} · ${formatAmount(exp.amount)}`;
+        confirmSub.textContent = `${exp.description} · ${isAmountsHidden ? '•••••' : formatAmount(exp.amount)}`;
         confirmDialog.classList.add('active');
         vibrate(30);
       }
@@ -2213,7 +2569,11 @@
       }
 
       function showAnalyticsModal() {
-        currentAnalyticsMonth = new Date();
+        if (currentFilter === 'month' && selectedMonthOffset !== 0) {
+          currentAnalyticsMonth = getSelectedMonthDate();
+        } else {
+          currentAnalyticsMonth = new Date();
+        }
         updateAnalytics();
         analyticsModal.classList.add('active');
         vibrate(30);
@@ -2243,28 +2603,40 @@
       }
 
       async function addExpense() {
-        if (isAddingExpense) return;
-        
         const description = expenseDesc.value.trim();
         const amountStr = expenseAmount.value.trim();
+        const amount = parseFloat(amountStr);
+        
+        let hasError = false;
         
         if (!description) {
           vibrate(50);
+          expenseDesc.classList.add('error');
           expenseDesc.focus();
-          expenseDesc.style.borderColor = '#ff453a';
-          setTimeout(() => expenseDesc.style.borderColor = '', 1000);
-          return;
+          hasError = true;
         }
         
-        if (!amountStr || isNaN(parseFloat(amountStr)) || parseFloat(amountStr) <= 0) {
+        if (!amountStr || isNaN(amount) || amount <= 0) {
           vibrate(50);
+          expenseAmount.classList.add('error');
+          if (!hasError) expenseAmount.focus();
+          hasError = true;
+        } else if (amount > MAX_AMOUNT) {
+          vibrate([80, 40, 80]);
+          expenseAmount.classList.add('error');
           expenseAmount.focus();
-          expenseAmount.style.borderColor = '#ff453a';
-          setTimeout(() => expenseAmount.style.borderColor = '', 1000);
+          showToast('Максимальная сумма: 10 000 000 ₽');
+          hasError = true;
+        }
+        
+        if (hasError) {
+          setTimeout(() => {
+            expenseDesc.classList.remove('error');
+            expenseAmount.classList.remove('error');
+          }, 2000);
           return;
         }
         
-        const amount = parseFloat(amountStr);
         let finalCategory = selectedCategory;
         
         if (selectedCategory === 'Другое') {
@@ -2272,8 +2644,8 @@
           if (customName) finalCategory = customName;
         }
         
-        isAddingExpense = true;
         saveExpenseBtn.disabled = true;
+        saveExpenseBtn.textContent = 'Сохранение...';
         
         if (editExpenseId) {
           const success = await updateExpenseInDB(editExpenseId, {
@@ -2287,6 +2659,7 @@
             updateUI();
             hideModal();
             vibrate(30);
+            showToast('Трата обновлена');
           }
         } else {
           const newExpense = {
@@ -2303,47 +2676,51 @@
             updateUI();
             hideModal();
             vibrate(30);
+            showToast('Трата добавлена');
           }
         }
         
-        isAddingExpense = false;
         saveExpenseBtn.disabled = false;
+        saveExpenseBtn.textContent = editExpenseId ? 'Сохранить изменения' : 'Добавить трату';
       }
 
       async function deleteExpense() {
-        if (isDeletingExpense || !deleteExpenseId) return;
-        
-        isDeletingExpense = true;
-        confirmDeleteBtn.disabled = true;
-        
-        const success = await deleteExpenseFromDB(deleteExpenseId);
-        
-        if (success) {
-          expenses = expenses.filter(e => e.id !== deleteExpenseId);
-          updateUI();
-          hideDeleteConfirm();
-          vibrate(50);
+        if (deleteExpenseId) {
+          confirmDeleteBtn.disabled = true;
+          confirmDeleteBtn.textContent = 'Удаление...';
+          
+          const success = await deleteExpenseFromDB(deleteExpenseId);
+          if (success) {
+            await loadData();
+            updateUI();
+            hideDeleteConfirm();
+            vibrate(50);
+            showToast('Трата удалена');
+          }
+          
+          confirmDeleteBtn.disabled = false;
+          confirmDeleteBtn.textContent = 'Удалить';
         }
-        
-        isDeletingExpense = false;
-        confirmDeleteBtn.disabled = false;
       }
 
       function getLockDuration(attempts) {
-        if (attempts >= 4) return 60 * 60 * 1000;
-        if (attempts >= 3) return 30 * 60 * 1000;
-        if (attempts >= 2) return 5 * 60 * 1000;
-        if (attempts >= 1) return 60 * 1000;
+        if (attempts >= 7) return 24 * 60 * 60 * 1000;
+        if (attempts >= 6) return 60 * 60 * 1000;
+        if (attempts >= 5) return 5 * 60 * 1000;
+        if (attempts >= 4) return 60 * 1000;
         return 0;
       }
 
       function checkPin() {
         if (pinCode.length === 4) {
-          if (pinCode === correctPin) {
+          if (pinCode === correctPinHash) {
             failedAttempts = 0;
             lockUntil = null;
             pinErrorMessage.textContent = '';
             pinScreen.classList.add('hidden');
+            selectedMonthOffset = 0;
+            currentFilter = 'today';
+            updateUI();
             vibrate(50);
           } else {
             failedAttempts++;
@@ -2354,8 +2731,9 @@
               pinErrorMessage.textContent = `Неверный пин-код. Заблокировано на ${minutes} мин.`;
               vibrate([100, 50, 100]);
               startLockTimer();
+              disableKeypad(true);
             } else {
-              pinErrorMessage.textContent = 'Неверный пин-код';
+              pinErrorMessage.textContent = `Неверный пин-код (попытка ${failedAttempts} из 3)`;
               vibrate([80, 40, 80]);
             }
             pinDots.forEach(dot => {
@@ -2377,6 +2755,7 @@
             clearInterval(lockTimer);
             lockUntil = null;
             pinErrorMessage.textContent = '';
+            disableKeypad(false);
           } else if (lockUntil) {
             const remaining = Math.ceil((lockUntil - Date.now()) / 1000);
             const minutes = Math.floor(remaining / 60);
@@ -2386,7 +2765,25 @@
         }, 1000);
       }
 
+      function disableKeypad(disabled) {
+        const keys = pinKeypad.querySelectorAll('.pin-key');
+        keys.forEach(key => {
+          key.disabled = disabled;
+          key.style.opacity = disabled ? '0.5' : '1';
+          key.style.pointerEvents = disabled ? 'none' : 'auto';
+        });
+      }
+
+      async function refreshData() {
+        await loadData();
+        updateUI();
+        showToast('Данные обновлены');
+      }
+
       async function init() {
+        selectedMonthOffset = 0;
+        currentFilter = 'today';
+        
         await loadData();
         updateUI();
         
@@ -2434,6 +2831,14 @@
           if (e.key === 'Enter') addExpense();
         });
         
+        expenseAmount.addEventListener('input', function() {
+          const amount = parseFloat(this.value);
+          if (amount > MAX_AMOUNT) {
+            this.value = MAX_AMOUNT;
+            showToast('Максимальная сумма: 10 000 000 ₽');
+          }
+        });
+        
         categorySelector.addEventListener('click', function(e) {
           const chip = e.target.closest('.category-chip');
           if (chip) {
@@ -2443,20 +2848,60 @@
           }
         });
         
-        quickToday.addEventListener('click', () => { currentFilter = 'today'; updateUI(); vibrate(10); });
-        quickWeek.addEventListener('click', () => { currentFilter = 'week'; updateUI(); vibrate(10); });
-        quickMonth.addEventListener('click', () => { currentFilter = 'month'; updateUI(); vibrate(10); });
-        quickYear.addEventListener('click', () => { currentFilter = 'year'; updateUI(); vibrate(10); });
+        quickToday.addEventListener('click', () => { 
+          currentFilter = 'today'; 
+          selectedMonthOffset = 0;
+          updateUI(); 
+          vibrate(10); 
+        });
+        quickWeek.addEventListener('click', () => { 
+          currentFilter = 'week'; 
+          selectedMonthOffset = 0;
+          updateUI(); 
+          vibrate(10); 
+        });
+        quickMonth.addEventListener('click', () => { 
+          currentFilter = 'month'; 
+          selectedMonthOffset = 0;
+          updateUI(); 
+          vibrate(10); 
+        });
+        quickAll.addEventListener('click', () => { 
+          currentFilter = 'all'; 
+          selectedMonthOffset = 0;
+          updateUI(); 
+          vibrate(10); 
+        });
         
-        toggleBalanceBtn.addEventListener('click', () => {
-          isBalanceHidden = !isBalanceHidden;
+        prevMonthFilterBtn.addEventListener('click', () => {
+          if (canGoToPreviousMonth()) {
+            selectedMonthOffset--;
+            currentFilter = 'month';
+            updateUI();
+            vibrate(10);
+          }
+        });
+        
+        nextMonthFilterBtn.addEventListener('click', () => {
+          if (selectedMonthOffset < 0) {
+            selectedMonthOffset++;
+          }
+          currentFilter = 'month';
           updateUI();
           vibrate(10);
         });
         
-        toggleHistoryAmountsBtn.addEventListener('click', () => {
-          isHistoryAmountsHidden = !isHistoryAmountsHidden;
+        toggleBalanceBtn.addEventListener('click', () => {
+          isAmountsHidden = !isAmountsHidden;
           updateUI();
+          updateAnalytics();
+          vibrate(10);
+        });
+        
+        toggleHistoryAmountsBtn.addEventListener('click', () => {
+          isAmountsHidden = !isAmountsHidden;
+          updateUI();
+          updateAnalytics();
           vibrate(10);
         });
         
@@ -2474,22 +2919,24 @@
         });
         
         prevMonthBtn.addEventListener('click', () => {
-          currentAnalyticsMonth = new Date(currentAnalyticsMonth.getFullYear(), currentAnalyticsMonth.getMonth() - 1, 1);
-          updateAnalytics();
-          vibrate(10);
+          if (currentAnalyticsMonth > MIN_DATE) {
+            currentAnalyticsMonth = new Date(currentAnalyticsMonth.getFullYear(), currentAnalyticsMonth.getMonth() - 1, 1);
+            updateAnalytics();
+            vibrate(10);
+          }
         });
         
         nextMonthBtn.addEventListener('click', () => {
-          currentAnalyticsMonth = new Date(currentAnalyticsMonth.getFullYear(), currentAnalyticsMonth.getMonth() + 1, 1);
-          updateAnalytics();
-          vibrate(10);
+          if (currentAnalyticsMonth < new Date()) {
+            currentAnalyticsMonth = new Date(currentAnalyticsMonth.getFullYear(), currentAnalyticsMonth.getMonth() + 1, 1);
+            updateAnalytics();
+            vibrate(10);
+          }
         });
         
-        refreshChartBtn.addEventListener('click', () => {
-          const filtered = getFilteredExpenses(currentFilter);
-          updateChart(filtered, true);
-          vibrate(10);
-        });
+        shareBtn.addEventListener('click', shareMonthlyReport);
+        
+        refreshChartBtn.addEventListener('click', refreshData);
         
         confirmCancelBtn.addEventListener('click', hideDeleteConfirm);
         confirmDeleteBtn.addEventListener('click', deleteExpense);
@@ -2510,6 +2957,14 @@
             closeAllActions();
           }
         });
+
+        // Автообновление каждые 30 секунд
+        setInterval(async () => {
+          if (!isLoading && !pinScreen.classList.contains('hidden')) {
+            await loadData();
+            updateUI();
+          }
+        }, 30000);
 
         setTimeout(() => {
           const filtered = getFilteredExpenses(currentFilter);
